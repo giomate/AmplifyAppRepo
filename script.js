@@ -361,7 +361,7 @@ function setGaugeValue() {
    let json = await response.json();
    diverterData=json.payload;
  //  let t=diverterData.M;
-  // console.log("t",t);
+    console.log("GET",diverterData);
     UpdateData();
   } else {
     alert("HTTP-Error: " + response.status);
