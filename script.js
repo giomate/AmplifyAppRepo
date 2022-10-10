@@ -1,8 +1,5 @@
 
 
-// Require JS
-
-;
 
 const gaugeElement = document.querySelector(".gauge");
 var lastPeriod=0;
@@ -14,18 +11,12 @@ var nextColor="rgb(0,255,0)";
 var frequencyColor="rgb(0,255,0)";
 var onFocus=1;
 var co2Inlet=400, co2Outlet=400;
-var diverterData={
-  "diverter": {
-    "co2Inlet": 1740
-  },
-  "diffusor": {
-    "co2Outlet": 799
-  },
-  "trebina": {
-    "frequency": 17622,
-    "phase": 52
-  }
-};
+var red=0,green=255,blue=0;
+var iaq=50;
+var diverterData={};
+var speed=20;
+var inlet=400,outlet=400,exhaust=400;
+
 
 
 const moonsun = document.getElementById('sunmoon');
@@ -35,303 +26,13 @@ const moonColor='#1C3236';
 
 document.body.style.setProperty('--main-color', sunColor);
 
-function SetFrequencyColor(){
-  frequencyColor=nextColor;
-  if (reduction>0){
-    var R = parseInt(64 +63*(1-reduction));
-    var G = parseInt(255*reduction);
-    nextColor= "rgb(" + R + "," + G +",0)";
-    console.log("Nextcolor ",nextColor);
-  }else{
-    nextColor= "rgb(64,128,0)";
-  }
- 
-}
 
 
-function setGaugeValue() {
-  SetFrequencyColor();
-  var f=(frequency-400)/(1*17600);
-
-  gaugeElement.querySelector(".gauge__frequency").style.setProperty('--frequency-color', frequencyColor);
-  gaugeElement.querySelector(".gauge__frequency").style.setProperty('--nextFrequency-color', nextColor);
-  gaugeElement.querySelector(".gauge__frequency").style.transform = `rotate(${
-    f/2
-  }turn)`;
-  //gaugeElement.querySelector(".gauge__frequency").classList.add("one");
-  //gaugeElement.querySelector(".gauge__frequency").style.animationDuration = `1s`;
-  //gaugeElement.querySelector(".gauge__frequency").style.animation = 'fadeBackground 1s ease-in-out 0s 1';
- // gaugeElement.querySelector(".gauge__frequency").style.animationPLayState= `running`; 
-  
-  var t=tone/170000;
-  gaugeElement.querySelector(".gauge__tone").style.transform = `rotate(${
-    (f/2+t)
-  }turn)`;
-  
-      var  p = phase/120;
-  gaugeElement.querySelector(".gauge__phase").style.transform = `rotate(${
-    p / 2 
-  }turn)`;
-  gaugeElement.querySelector(".gauge__cover").textContent = `${Math.round(
-    frequency
-  )} MHz`;
-}
 
 
-/*
 
-  var chartF = new Highcharts.chart('Frequency', {
-    chart: {
-      type: 'spline',
-    //  backgroundColor: '#2CFFC0'
-    },
-    title: {
-      text: 'Frequency Resonator'
-    },
-    xAxis: {
-      type: 'datetime',
-      dateTimeLabelFormats: { // don't display the dummy year
-        month: '%e. %b',
-        year: '%b'
-      },
-      title: {
-        text: 'Date'
-      }
-    },
-    yAxis: {
-      title: {
-        text: 'Frequency (MHz)'
-      },
-     // min: 0
-    },
-    tooltip: {
-      headerFormat: '<b>{series.name}</b><br>',
-      pointFormat: '{point.x:%e. %b}: {point.y:.2f} ppm'
-    },
-  
-    plotOptions: {
-      series: {
-        marker: {
-          enabled: true
-        }
-      }
-    },
-     // Define the data points. All series have a dummy year
-    // of 1970/71 in order to be compared on the same x axis. Note
-    // that in JavaScript, months start at 0 for January, 1 for February etc.
-    series: [
-      {
-      name: "Frequency",
-      data: []
-      }
-   
-    ],
-  
-    responsive: {
-      rules: [{
-        condition: {
-          maxWidth: 500
-        },
-        chartOptions: {
-          plotOptions: {
-            series: {
-              marker: {
-                radius: 2.5
-              }
-            }
-          }
-        }
-      }]
-    }
-  });
 
-  var chartP = new Highcharts.chart('Phase', {
-    chart: {
-      type: 'spline'
-    },
-    title: {
-      text: 'Phase diffrence Trebina I and Q'
-    },
-    xAxis: {
-      type: 'datetime',
-      dateTimeLabelFormats: { // don't display the dummy year
-        month: '%e. %b',
-        year: '%b'
-      },
-      title: {
-        text: 'Date'
-      }
-    },
-    yAxis: {
-      title: {
-        text: 'Degrees (Â°)'
-      },
-     // min: 0
-    },
-    tooltip: {
-      headerFormat: '<b>{series.name}</b><br>',
-      pointFormat: '{point.x:%e. %b}: {point.y:.2f} ppm'
-    },
-  
-    plotOptions: {
-      series: {
-        marker: {
-          enabled: true
-        }
-      }
-    },
-     // Define the data points. All series have a dummy year
-    // of 1970/71 in order to be compared on the same x axis. Note
-    // that in JavaScript, months start at 0 for January, 1 for February etc.
-    series: [
-      {
-      name: "Phase",
-      data: []
-      }     
-    ],
-  
-    responsive: {
-      rules: [{
-        condition: {
-          maxWidth: 500
-        },
-        chartOptions: {
-          plotOptions: {
-            series: {
-              marker: {
-                radius: 2.5
-              }
-            }
-          }
-        }
-      }]
-    }
-  });
 
-  var chartT = new Highcharts.chart('Tone', {
-    chart: {
-      type: 'spline',
-    //  backgroundColor: '#2CFFC0'
-    },
-    title: {
-      text: 'Resonance tone'
-    },
-     xAxis: {
-      type: 'datetime',
-      dateTimeLabelFormats: { // don't display the dummy year
-        month: '%e. %b',
-        year: '%b'
-      },
-      title: {
-        text: 'Date'
-      }
-    },
-    yAxis: {
-      title: {
-        text: 'Frequency Shift (Hz)'
-      },
-     // min: 0
-    },
-    tooltip: {
-      headerFormat: '<b>{series.name}</b><br>',
-      pointFormat: '{point.x:%e. %b}: {point.y:.2f} ppm'
-    },
-  
-    plotOptions: {
-      series: {
-        marker: {
-          enabled: true
-        }
-      }
-    },
-     // Define the data points. All series have a dummy year
-    // of 1970/71 in order to be compared on the same x axis. Note
-    // that in JavaScript, months start at 0 for January, 1 for February etc.
-    series: [
-      {
-      name: "tone",
-      data: []
-      }
-   
-    ],
-  
-    responsive: {
-      rules: [{
-        condition: {
-          maxWidth: 500
-        },
-        chartOptions: {
-          plotOptions: {
-            series: {
-              marker: {
-                radius: 2.5
-              }
-            }
-          }
-        }
-      }]
-    }
-  });
-
-  function ToogleSunMoon(){
-    target.classList.toggle('toggle');
-    target.classList.toggle('sun');
-    target.classList.toggle('moon');
-    if(getComputedStyle(document.body).getPropertyValue('--main-color') == sunColor) {
-      document.body.style.setProperty('--main-color', moonColor);
-      chartT.update({
-        chart: {
-          
-            backgroundColor: moonColor
-        }
-       
-      });
-      chartF.update({
-        chart: {
-          
-            backgroundColor: moonColor
-        }
-       
-      });
-      chartP.update({
-        chart: {
-          
-            backgroundColor: moonColor
-        }
-       
-      });
-        
-  
-    } else if(getComputedStyle(document.body).getPropertyValue('--main-color') == moonColor) {
-      document.body.style.setProperty('--main-color', sunColor);
-       chartT.update({
-          chart: {
-            
-              backgroundColor: sunColor
-             
-          }
-        
-        });
-        chartP.update({
-          chart: {
-            
-              backgroundColor: sunColor
-             
-          }
-        
-        });
-        chartF.update({
-          chart: {
-            
-              backgroundColor: sunColor
-          }
-         
-        });
-     
-        
-    }
-  }
-  */
   document.addEventListener("visibilitychange", function (event) {
     if (document.hidden) {
        onFocus=0;
@@ -397,34 +98,16 @@ function setGaugeValue() {
     if (request.ok) {
       console.log("POST", request);
 
-    await  GetResponse();
-    }else{
-      console.log("error POST", request.status);
-    }
-    	return request;
-  /*.then(response =>{
-      response.text();
-      if (response.status==200) {
-        console.log("POST", response);
-       await  GetResponse();
+      await  GetResponse();
+      }else{
+        console.log("error POST", request.status);
       }
-     */
-   //   return response;
-//      status=JSON.parse(response.text());
- //   } )
-  //  .then(result => alert(JSON.parse(result).body))
-  // .then(result => console.log("post", result))
-   // .catch(error => console.log('error', error));
- //   console.log("post", request)
-   // return request;
+    	return request;
+
 }
 function  UpdateData(){
 
- // console.log("data: ",data);
- // var json=JSON.parse(data);
-  //console.log("Json: ",json);
- // let t=json.trebina;
-  //console.log("Json: ",diverterData.M);
+
 
   frequency= parseFloat(diverterData.M.trebina.M.frequency.N);
   phase= parseFloat(diverterData.M.trebina.M.phase.N);
@@ -433,96 +116,235 @@ function  UpdateData(){
 //     console.log(textValues[2]);
      tone= parseFloat(diverterData.M.trebina.M.tone.N);
 
-     co2Inlet=parseInt(diverterData.M.diverter.M.co2Inlet.N);
-      co2Outlet=parseInt(diverterData.M.diffusor.M.co2Outlet.N);
+     inlet=parseInt(diverterData.M.diverter.M.co2.N);
+      outlet=parseInt(diverterData.M.diffusor.M.co2.N);
+      exhaust=parseInt(diverterData.M.scavenge.M.co2.N);
+      iaq=parseInt(diverterData.M.diffusor.M.iaq.N);
+      speed=parseInt(diverterData.M.diffusor.M.speed.N);
+      
+}
+function ParseIAQColor(iaq){
+	if(iaq>0){
+		if (iaq<50) {
+			blue=64+ (50-iaq)*192/49 ; green=255- (50-iaq)*192/49;
+			red=0;
+		} else if(iaq<256){
+			green=255- (iaq-50)*255/205;
+			red=(iaq-50)*255/205;
+			blue=0;
+		}else{
+			red=255;
+			blue=(iaq-255)*255/245;
+			green=0;
+		}
+	}
+	return green;
 }
 
 
+var chartR = new Highcharts.chart('Reduction', {
+  chart: {
+    type: 'spline',
+  //  backgroundColor: '#2CFFC0'
+  },
+  title: {
+    text: 'Pollutans Reduction'
+  },
+  subtitle: {
+    text: 'Porcentual reduction of pollutans'
+  },
+  xAxis: {
+    type: 'datetime',
+    dateTimeLabelFormats: { // don't display the dummy year
+      month: '%e. %b',
+      year: '%b'
+    },
+    title: {
+      text: 'Date'
+    }
+  },
+  yAxis: {
+    title: {
+      text: 'VOC Concentration (ppm)'
+    },
+   // min: 0
+  },
+  tooltip: {
+    headerFormat: '<b>{series.name}</b><br>',
+    pointFormat: '{point.x:%e. %b}: {point.y:.2f} ppm'
+  },
+
+  plotOptions: {
+    series: {
+      marker: {
+        enabled: true
+      }
+    }
+  },
+   // Define the data points. All series have a dummy year
+  // of 1970/71 in order to be compared on the same x axis. Note
+  // that in JavaScript, months start at 0 for January, 1 for February etc.
+  series: [
+    {
+    name: "reduction",
+    data: []
+    }
+ 
+  ],
+
+  responsive: {
+    rules: [{
+      condition: {
+        maxWidth: 500
+      },
+      chartOptions: {
+        plotOptions: {
+          series: {
+            marker: {
+              radius: 2.5
+            }
+          }
+        }
+      }
+    }]
+  }
+});
+
+var chartC = new Highcharts.chart('Sensors', {
+  chart: {
+    type: 'spline'
+  },
+  title: {
+    text: 'VOC Concentration'
+  },
+  subtitle: {
+    text: 'Volatile Organic Compounds  at the test points'
+  },
+  xAxis: {
+    type: 'datetime',
+    dateTimeLabelFormats: { // don't display the dummy year
+      month: '%e. %b',
+      year: '%b'
+    },
+    title: {
+      text: 'Date'
+    }
+  },
+  yAxis: {
+    title: {
+      text: 'CO2 Concentration (ppm)'
+    },
+   // min: 0
+  },
+  tooltip: {
+    headerFormat: '<b>{series.name}</b><br>',
+    pointFormat: '{point.x:%e. %b}: {point.y:.2f} ppm'
+  },
+
+  plotOptions: {
+    series: {
+      marker: {
+        enabled: true
+      }
+    }
+  },
+   // Define the data points. All series have a dummy year
+  // of 1970/71 in order to be compared on the same x axis. Note
+  // that in JavaScript, months start at 0 for January, 1 for February etc.
+  series: [
+    {
+    name: "Outlet",
+    color: '#003fff',
+    data: []
+    },
+    {
+      name: "Inlet",
+      color: '#3f1f00',
+      data: []
+
+    },      
+    {
+      name: "Exhaust",
+      color: '#bf3f00',
+      data: []
+
+    }      
+  ],
+
+  responsive: {
+    rules: [{
+      condition: {
+        maxWidth: 500
+      },
+      chartOptions: {
+        plotOptions: {
+          series: {
+            marker: {
+              radius: 2.5
+            }
+          }
+        }
+      }
+    }]
+  }
+});
+
+
+function SetReductionColor(sp) {
+
+  //console.log("value ", value);
+  frequencyColor=nextColor;
+
+  reductionLabel.innerHTML = parseInt(iaq>0?iaq:50);
+   nextColor= "rgb("+red+","+green+","+blue+")";
+//  console.log("NextColor ", nextColor);
+ _fan.style.setProperty('--nextColor',nextColor);
+ _fan.style.setProperty('--frequencyColor',frequencyColor);
+ 
+  var s=(12 -parseInt(sp*11/100))*0.4;
+  //s=0.1;
+   period=s+"s";
+  if(period==lastPeriod){
+    
+  }else{
+     fan.style.setProperty('--periodRotation',period);
+    lastPeriod=period;
+  }
+ 
+  console.log("Speed ", period);
+  
+}
+
+function SetCharts(){
+
+  if ((inlet>300)&(outlet>300)&(exhaust>300)) {
+    var t = (new Date()).getTime();
+  
+    if(chartC.series[0].data.length > 40) {
+      chartC.series[0].addPoint([t, outlet], true, true, true);
+      chartC.series[1].addPoint([t, inlet], true, true, true);
+      chartC.series[2].addPoint([t, exhaust], true, true, true);
+    } else {
+      chartC.series[0].addPoint([t, outlet], true, false, true);
+      chartC.series[1].addPoint([t, inlet], true, false, true);
+      chartC.series[2].addPoint([t, exhaust], true, false, true);
+    }
+    if(chartR.series[0].data.length > 40) {
+      chartR.series[0].addPoint([t, reduction>0?reduction:0], true, true, true);
+    } else {
+      chartR.series[0].addPoint([t, reduction>0?reduction:0], true, false, true);
+    }
+  }
+
+}
   
   setInterval( async function ( ) {
-    
+
+    ParseIAQColor(iaq)
+    SetReductionColor(diffusorSpeed);
+    SetCharts()
  
-    //   console.log(this.responseText);
-     //   let textValues=(this.responseText).split(',');
-        powerON= 1;
-   //     console.log(textValues[0]);
-  //  UpdateData();
-
-        reduction=(co2Inlet-co2Outlet)/(1+co2Inlet);
-        
-        
-     
-        if ((frequency>300)&(phase>0)&(tone>0)) {
-          var t = (new Date()).getTime();
-        
-       /*  
-          if(chartF.series[0].data.length > 40) {
-            chartF.series[0].addPoint([t, frequency], true, true, true);
-          } else {
-            chartF.series[0].addPoint([t, frequency], true, false, true);
-          }
-          if(chartP.series[0].data.length > 40) {
-            chartP.series[0].addPoint([t, phase], true, true, true);
-          } else {
-            chartP.series[0].addPoint([t, phase], true, false, true);
-          }
-          if(chartT.series[0].data.length > 40) {
-            chartT.series[0].addPoint([t, tone], true, true, true);
-          } else {
-            chartT.series[0].addPoint([t, tone], true, false, true);
-          }
-          */
-          setGaugeValue();
-          if (powerON>0) {         
-            if(getComputedStyle(document.body).getPropertyValue('--main-color') == sunColor) {
-                
-                
-            } else if(getComputedStyle(document.body).getPropertyValue('--main-color') == moonColor) {
-              if (powerOnCounter<secondsCounter) {
-                ToogleSunMoon();
-              }
-                
-            }
-          }else{
-            if(getComputedStyle(document.body).getPropertyValue('--main-color') == sunColor) {
-              if (powerOnCounter<secondsCounter) {
-                ToogleSunMoon();
-              }
-            
-                
-            } else if(getComputedStyle(document.body).getPropertyValue('--main-color') == moonColor) {
-            
-                
-            }
-          }
-        }
-       
-       
-       //  if ((Math.abs(reduction)<2000)&(inlet>200)&(outlet>200)) {
-       
-        
-        
-     
-        /*
-        var t = (new Date()).getTime();
-        var  x =  400+Math.random()*800;
-        var  y =  400+Math.random()*800;
-         var z =  400+Math.random()*800;
-        //console.log(this.responseText);
-        if(chartC.series[0].data.length > 40) {
-          chartC.series[0].addPoint([t, x], true, true, true);
-          chartC.series[1].addPoint([t, y], true, true, true);
-          chartC.series[2].addPoint([t, z], true, true, true);
-        } else {
-          chartC.series[0].addPoint([t, x], true, false, true);
-          chartC.series[1].addPoint([t,y], true, false, true);
-          chartC.series[2].addPoint([t, z], true, false, true);
-        }
-        */
-       
-      
-
-   
+ 
     secondsCounter++;
     if (onFocus) {
       if(await callAPI().status==200){
@@ -531,7 +353,58 @@ function  UpdateData(){
     }
  
  //   console.log("Seconds",secondsCounter);
-  }, 1000 ) ;
+  }, 1200 ) ;
+
+  function ToogleSunMoon(){
+    target.classList.toggle('toggle');
+    target.classList.toggle('sun');
+    target.classList.toggle('moon');
+    if(getComputedStyle(document.body).getPropertyValue('--main-color') == sunColor) {
+      document.body.style.setProperty('--main-color', moonColor);
+      chartR.update({
+        chart: {
+          
+            backgroundColor: moonColor
+        }
+       
+      });
+      chartC.update({
+        chart: {
+          
+            backgroundColor: moonColor
+        }
+       
+      });
+        
+  
+    } else if(getComputedStyle(document.body).getPropertyValue('--main-color') == moonColor) {
+      document.body.style.setProperty('--main-color', sunColor);
+       chartR.update({
+          chart: {
+            
+              backgroundColor: sunColor
+             
+          }
+        
+        });
+        chartC.update({
+          chart: {
+            
+              backgroundColor: sunColor
+             
+          }
+        
+        });
+     
+        
+    }
+  }
+
+  moonsun.addEventListener('click', () => {
+    ToogleSunMoon()
+   
+    powerOnCounter=secondsCounter+3;
+  });
 
 
 
