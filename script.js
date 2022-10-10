@@ -2,6 +2,9 @@
 
 
 const gaugeElement = document.querySelector(".gauge");
+var reductionLabel = document.getElementById("rp");
+var iaqLabel= document.getElementById("iaqword");
+const _fan = document.querySelector(".loader--default");
 var lastPeriod=0;
 var reduction;
 var gear,lastGear;
@@ -128,10 +131,19 @@ function ParseIAQColor(iaq){
 		if (iaq<50) {
 			blue=64+ (50-iaq)*192/49 ; green=255- (50-iaq)*192/49;
 			red=0;
+      iaqLabel.innerHTML = "Excelent";
+
 		} else if(iaq<256){
 			green=255- (iaq-50)*255/205;
 			red=(iaq-50)*255/205;
 			blue=0;
+        if (iaq<100) {
+          iaqLabel.innerHTML = "Fine";
+        } else if(iaq<150){
+          iaqLabel.innerHTML = "Moderate";
+        }else{
+          iaqLabel.innerHTML = "Polluted";
+        }
 		}else{
 			red=255;
 			blue=(iaq-255)*255/245;
@@ -301,13 +313,13 @@ function SetReductionColor(sp) {
  _fan.style.setProperty('--nextColor',nextColor);
  _fan.style.setProperty('--frequencyColor',frequencyColor);
  
-  var s=(12 -parseInt(sp*11/100))*0.4;
+  var s=(12 -parseInt(sp*11/40))*0.2;
   //s=0.1;
    period=s+"s";
   if(period==lastPeriod){
     
   }else{
-     fan.style.setProperty('--periodRotation',period);
+     _fan.style.setProperty('--periodRotation',period);
     lastPeriod=period;
   }
  
@@ -316,7 +328,7 @@ function SetReductionColor(sp) {
 }
 
 function SetCharts(){
-
+  let reduction=(inlet-outlet)*speed/100;
   if ((inlet>300)&(outlet>300)&(exhaust>300)) {
     var t = (new Date()).getTime();
   
@@ -341,7 +353,7 @@ function SetCharts(){
   setInterval( async function ( ) {
 
     ParseIAQColor(iaq)
-    SetReductionColor(diffusorSpeed);
+    SetReductionColor(speed);
     SetCharts()
  
  
