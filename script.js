@@ -91,7 +91,7 @@ document.body.style.setProperty('--main-color', sunColor);
     myHeaders.append("Content-Type", "application/json");
     // using built in JSON utility package turn object to string and store in a variable
     var t = new Date();
-    secondsTime=t.getMinutes()*60+t.getSeconds();
+    secondsTime=parseInt((t.getMinutes()*60+t.getSeconds())*3000/3600);
     var raw = JSON.stringify({"seconds":secondsTime});
     // create a JSON object with parameters for API call and store in a variable
     var requestOptions = {
