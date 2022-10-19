@@ -19,6 +19,7 @@ var iaq=50;
 var diverterData={};
 var speed=20;
 var inlet=400,outlet=400,exhaust=400;
+var secondsTime={};
 
 
 
@@ -51,12 +52,13 @@ document.body.style.setProperty('--main-color', sunColor);
   // add content type header to object
   myHeaders.append("Content-Type", "application/json");
   // using built in JSON utility package turn object to string and store in a variable
-  var raw = JSON.stringify({"message":"Where is the data?"});
+  var raw = JSON.stringify({"seconds":secondsTime});
   // create a JSON object with parameters for API call and store in a variable
   var requestOptions = {
       method: 'GET',
-      headers: myHeaders
-     // redirect: 'follow'
+      headers: myHeaders,
+      body:raw,
+      redirect: 'follow'
   };
 
   let response = await fetch("https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy");
@@ -88,7 +90,9 @@ document.body.style.setProperty('--main-color', sunColor);
     // add content type header to object
     myHeaders.append("Content-Type", "application/json");
     // using built in JSON utility package turn object to string and store in a variable
-    var raw = JSON.stringify({"message":"Hello from Webapp"});
+    var t = new Date();
+    secondsTime=t.getMinutes()*60+t.getSeconds();
+    var raw = JSON.stringify({"seconds":secondsTime});
     // create a JSON object with parameters for API call and store in a variable
     var requestOptions = {
         method: 'POST',
