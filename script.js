@@ -19,7 +19,8 @@ var iaq=50;
 var diverterData={};
 var speed=20;
 var inlet=400,outlet=400,exhaust=400;
-var secondsTime={};
+var secondsTime=0,lastValidSeconds=0;
+var rawSeconds={};
 
 
 
@@ -51,24 +52,32 @@ document.body.style.setProperty('--main-color', sunColor);
   var myHeaders = new Headers();
   // add content type header to object
   myHeaders.append("Content-Type", "application/json");
+//  myHeaders.append("Access-Control-Allow-Origin", "*");
   // using built in JSON utility package turn object to string and store in a variable
-  var raw = JSON.stringify({"seconds":secondsTime});
   // create a JSON object with parameters for API call and store in a variable
   var requestOptions = {
       method: 'GET',
-      headers: myHeaders,
-      body:raw,
-      redirect: 'follow'
+    //  headers: myHeaders,
+     body: rawSeconds
+     // redirect: 'follow'
   };
-
-  let response = await fetch("https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy");
+  var apiUrl="https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy" +"?seconds="+String(lastValidSeconds);
+ // console.log(apiUrl);
+  let response = await fetch(apiUrl);
+ // let response = await fetch("https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy");
   if (response.ok) { // if HTTP-status is 200-299
+    
     // get the response body (the method explained below)
    let json = await response.json();
-   diverterData=json.payload;
+   
+   const body=json.body;
+   console.log("GOT", body);
+
+  // let pay=json.payload;
+   diverterData=JSON.parse(body); 
  //  let t=diverterData.M;
-    console.log("GET",diverterData);
-    UpdateData();
+ //   console.log("GOT",diverterData);
+    await UpdateData(diverterData);
   } else {
     alert("HTTP-Error: " + response.status);
   }
@@ -89,45 +98,47 @@ document.body.style.setProperty('--main-color', sunColor);
     var myHeaders = new Headers();
     // add content type header to object
     myHeaders.append("Content-Type", "application/json");
+  //  myHeaders.append("Access-Control-Allow-Origin", "*");
     // using built in JSON utility package turn object to string and store in a variable
-    var t = new Date();
-    secondsTime=parseInt((t.getMinutes()*60+t.getSeconds())*3000/3600);
-    var raw = JSON.stringify({"seconds":secondsTime});
+    var t= (new Date());
+    secondsTime = (parseInt((t.getMinutes()*60+t.getSeconds())*3000/3600))%3000;
+    rawSeconds = JSON.stringify({"seconds":secondsTime});
     // create a JSON object with parameters for API call and store in a variable
     var requestOptions = {
         method: 'POST',
         headers: myHeaders,
-        body: raw,
+        body: rawSeconds,
         redirect: 'follow'
     };
     // make API call with parameters and use promises to get response
   const  request=  await fetch("https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy", requestOptions);
     if (request.ok) {
       console.log("POST", request);
-
       await  GetResponse();
+      lastValidSeconds=secondsTime;
+    
       }else{
         console.log("error POST", request.status);
       }
     	return request;
 
 }
-function  UpdateData(){
+async function  UpdateData(data){
+ // console.log("frequency",data.M.trebina.M.frequency.N);
 
 
-
-  frequency= parseFloat(diverterData.M.trebina.M.frequency.N);
-  phase= parseFloat(diverterData.M.trebina.M.phase.N);
+  frequency= parseFloat(diverterData.M.tre.M.fre.N);
+  phase= parseFloat(diverterData.M.tre.M.pha.N);
 //     console.log(textValues[1]);
     // phase= parseFloat(diverterData.trebina.phase);
 //     console.log(textValues[2]);
-     tone= parseFloat(diverterData.M.trebina.M.tone.N);
+     tone= parseFloat(diverterData.M.tre.M.ton.N);
 
-     inlet=parseInt(diverterData.M.diverter.M.co2.N);
-      outlet=parseInt(diverterData.M.diffusor.M.co2.N);
-      exhaust=parseInt(diverterData.M.scavenge.M.co2.N);
-      iaq=parseInt(diverterData.M.diffusor.M.iaq.N);
-      speed=parseInt(diverterData.M.diffusor.M.speed.N);
+     inlet=parseInt(diverterData.M.div.M.co2.N);
+      outlet=parseInt(diverterData.M.dif.M.co2.N);
+      exhaust=parseInt(diverterData.M.sca.M.co2.N);
+      iaq=parseInt(diverterData.M.dif.M.iaq.N);
+      speed=parseInt(diverterData.M.dif.M.spe.N);
       
 }
 function ParseIAQColor(iaq){

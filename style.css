@@ -79,6 +79,11 @@ h1 {
   text-align: center;
 }
 
+.iaqStack{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 #sunmoon {
   border-radius: 25px;
