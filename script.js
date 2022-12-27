@@ -384,7 +384,7 @@ function SetCharts(){
     }
  
  //   console.log("Seconds",secondsCounter);
-  }, 1000 ) ;
+  }, 1200 ) ;
 
   function ToogleSunMoon(){
     target.classList.toggle('toggle');
