@@ -19,7 +19,8 @@ var iaq=50;
 var diverterData={};
 var speed=20;
 var inlet=400,outlet=400,exhaust=400;
-var secondsTime=0,lastValidSeconds=0;
+var secondsTime=0;
+var lastValidSeconds0= 0,lastValidSeconds1= 0,lastValidSeconds2= 0;
 var rawSeconds={};
 
 
@@ -61,8 +62,8 @@ document.body.style.setProperty('--main-color', sunColor);
      body: rawSeconds
      // redirect: 'follow'
   };
-  var apiUrl="https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy" +"?seconds="+String(lastValidSeconds);
- // console.log(apiUrl);
+  var apiUrl="https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy" +"?seconds="+String(lastValidSeconds0);
+  console.log("last Seconds ",lastValidSeconds0 );
   let response = await fetch(apiUrl);
  // let response = await fetch("https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy");
   if (response.ok) { // if HTTP-status is 200-299
@@ -101,7 +102,7 @@ document.body.style.setProperty('--main-color', sunColor);
   //  myHeaders.append("Access-Control-Allow-Origin", "*");
     // using built in JSON utility package turn object to string and store in a variable
     var t= (new Date());
-    secondsTime = (parseInt((t.getMinutes()*60+t.getSeconds())*3000/3600))%3000;
+    secondsTime = (parseInt((t.getHours()*3600+t.getMinutes()*60+t.getSeconds())*1))%86400;
     rawSeconds = JSON.stringify({"seconds":secondsTime});
     // create a JSON object with parameters for API call and store in a variable
     var requestOptions = {
@@ -113,9 +114,12 @@ document.body.style.setProperty('--main-color', sunColor);
     // make API call with parameters and use promises to get response
   const  request=  await fetch("https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy", requestOptions);
     if (request.ok) {
-      console.log("POST", request);
+      console.log("POST :", secondsTime);
+      lastValidSeconds0=lastValidSeconds1;
+      lastValidSeconds1=lastValidSeconds2;
+      lastValidSeconds2=secondsTime;
       await  GetResponse();
-      lastValidSeconds=secondsTime;
+
     
       }else{
         console.log("error POST", request.status);
@@ -380,7 +384,7 @@ function SetCharts(){
     }
  
  //   console.log("Seconds",secondsCounter);
-  }, 1200 ) ;
+  }, 1000 ) ;
 
   function ToogleSunMoon(){
     target.classList.toggle('toggle');
