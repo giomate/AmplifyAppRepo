@@ -12,6 +12,10 @@ copies or substantial portions of the Software. -->
     
       <link rel="icon" href="data:,">
       <link href="style.css" rel="stylesheet" type="text/css">
+      <link href="diverter.css" rel="stylesheet" type="text/css">
+      <link href="slider.css" rel="stylesheet" type="text/css">
+      <link href="plots.css" rel="stylesheet" type="text/css">
+      <link href="spinner.css" rel="stylesheet" type="text/css">
 
 
       
@@ -28,12 +32,15 @@ copies or substantial portions of the Software. -->
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <div class="iaqStack">
-      <div id='sunmoon'>
-        <div id='target' class='sun' >
-          <div></div>
-        </div>
-      </div>  
+    <div class="animationStack">
+       <div class="sleepBox">
+        <div class="moonsun"  id='sunmoon'>
+          <div id='target' class='sun' >
+            <div></div>
+          </div>
+        </div>  
+      </div>
+  
       <div class="diverterSpinner">
         <div class="spinner">
 
@@ -50,23 +57,53 @@ copies or substantial portions of the Software. -->
             <div></div>
             <div></div>
             <div></div>
-      
           </div>
-            <div class="iaqText">
-              <h2><span id="rp"></span> </h2>
-              <!--p>Air Quality <span class="iaqword"> iaq_text</span></p-->
-              <!--h3> % </h3-->
-            </div>
+       
           </div>
-        
       </div>
-      <p class="airText">Air Quality <span id="iaqword"> iaq_text</span></p>
+    
+
+      <div class=diverterDisplay>
+        <div class="roundBackground">
+           <div class=outletGroup>
+             <div class="outletText">
+                <h2><span class="co2Text" id="ot"></span></h2>
+             </div>
+            <div class="arrowed">
+                <div class="arrowUp">
+                
+                </div>
+             </div>
+          </div>
+          <div class=inletGroup>
+             <div class="arrowed">
+                <div class="arrowLeft"></div>
+              </div>
+           <div class="inletText">
+              <h2><span class="co2Text" id="it"></span></h2>
+             </div>
+            <div class="arrowed">
+               <div class="arrowRight"></div>
+             </div>
+           </div>
+          <div class=exhaustGroup>
+              <div class="arrowed">
+                <div class="arrowDown"></div>
+              </div>
+             <div class="exhaustText">
+                <h2><span class="co2Text" id="et"></span></h2>
+             </div>
+           </div>
+        </div>
+      </div>
      </div>
+     <p class="airText">Air Quality <span id="iaqWord"> iaq_text</span></p>
+     <div class="chartsDivision">   
       <figure class="highcharts-figure">
         <div id="Reduction"></div>
-        <div id="Sensors"></div>
-      
+        <div id="Sensors"></div>      
       </figure>
+    </div>
  
 
   </body>

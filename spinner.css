@@ -1,0 +1,194 @@
+.diverterSpinner{
+    position: relative;
+    top: 10%;
+    left: 0%;
+      align-content: center;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    height: 44vw;
+     justify-content: center;
+     transform: translateY( -1vw);
+    z-index: 1;
+    background-color: transparent;
+
+    }
+    .spinner {
+      align-items: center;
+    display: flex;
+    text-align: left;
+    justify-content: left;
+      color: #00ff9f;
+      background: #fff;
+      position: relative;
+      padding-top: 1vw;
+      padding-bottom: 2vw;
+      padding-left: 1vw;
+      padding-right: 2vw;
+      background-color: inherit;
+     /*transform: scale(2);*/
+    }
+    .spinner .loader--default div{
+    
+    background: var(--iaqColor);
+      
+      
+    }
+    .loader--default {
+    /* display: inline-block;*/
+      position: relative;
+       height: 40vw;
+      width: 40vw;
+    
+     --nextColor:green;
+     --frequencyColor:red;
+    --periodRotation:12s;
+    }
+    
+    .loader--default div {
+     position: absolute;
+     
+     /* animation: spinner--default var(--periodRotation) linear infinite;*/
+      animation-duration: var(--periodRotation);
+      animation-name: spinner--default;
+      animation-iteration-count: infinite;
+      animation-play-state: running;
+      animation-timing-function: linear;
+      
+      border-radius: 50%;
+      height: 1vw;  
+      width: 1vw;
+    
+    
+    
+    
+    }
+    
+    
+    
+    
+    .loader--default div:nth-child(1) {
+    
+      animation-delay: 0s;
+     top: 20vw;
+      left:40vw;
+    /*  background-color: black;*/
+    
+    
+    }
+    
+    .loader--default div:nth-child(2) {
+    
+      --delay1:calc((1) * var(--periodRotation) / 12);
+    
+      animation-delay: var(--delay1);
+    top: 30vw ;
+      left: 37.3vw;
+      
+    
+    }
+    
+    .loader--default div:nth-child(3) {
+    
+    --delay2:calc((2)*var(--periodRotation)/12);
+      animation-delay: var(--delay2);
+      top: 37.3vw;
+      left: 30vw;
+         /*  background-color: black;*/
+    }
+    
+    .loader--default div:nth-child(4) {
+     
+      --delay3:calc((3) * var(--periodRotation) / 12);
+      animation-delay: var(--delay3);
+      top: 40vw;
+      left: 20vw;
+    
+    }
+    
+    .loader--default div:nth-child(5) {
+    
+      --delay4:calc(( 4)* var(--periodRotation) / 12);
+      animation-delay: var(--delay4);
+     top: 37.3vw;
+      left: 10vw;
+    
+    }
+    
+    .loader--default div:nth-child(6) {
+    
+      --delay5:calc( (5)*var(--periodRotation) / 12);
+      animation-delay: var(--delay5);
+     top: 30vw;
+      left: 2.7vw;
+    
+    }
+    
+    .loader--default div:nth-child(7) {
+    
+       --delay6:calc((var(--periodRotation) / 12) * calc(6));
+      animation-delay: var(--delay6);
+      top: 20vw;
+      left: 0vw;
+    }
+    
+    .loader--default div:nth-child(8) {
+    
+     --delay7:calc( calc(7) * (var(--periodRotation) / 12));
+      animation-delay: var(--delay7);
+      top: 10vw;
+      left: 2.7vw;
+    }
+    
+    .loader--default div:nth-child(9) {
+    
+      --delay8:calc((8)*(var(--periodRotation)/12));
+      animation-delay: var(--delay8);
+      top: 2.7vw;
+      left: 10vw;
+    }
+    
+    .loader--default div:nth-child(10) {
+    
+      --delay9:calc((9 )*( var(--periodRotation) / 12));
+      animation-delay: var(--delay9);
+      top: 0vw;
+      left: 20vw;
+    }
+    
+    .loader--default div:nth-child(11) {
+    
+     --delay10:calc((10) * var(--periodRotation) / 12);
+      animation-delay: var(--delay10);
+      top: 2.4vw;
+      left: 30vw;
+    }
+    
+    .loader--default div:nth-child(12) {
+    
+      --delay11:calc((11) * var(--periodRotation) / 12);
+      animation-delay: var(--delay11);
+      top: 10vw;
+      left: 37.3vw;
+    }
+    
+    @keyframes spinner--default {
+    
+    0%{
+      transform: scale(1);
+      
+    }
+      20%,
+      80%,
+      100% {
+          transform: scale(1);
+      
+      }
+    
+      50% {
+          transform: scale(2);
+         
+      }
+    
+    }

@@ -2,22 +2,28 @@
 
 
 const gaugeElement = document.querySelector(".gauge");
-var reductionLabel = document.getElementById("rp");
-var iaqLabel= document.getElementById("iaqword");
-const _fan = document.querySelector(".loader--default");
+//var reductionLabel = document.getElementById("rp");
+var inletLabel= document.getElementById("it");
+var outletLabel= document.getElementById("ot");
+var exhaustLabel= document.getElementById("et");
+var iaqLabel= document.getElementById("iaqWord");
+const spinnerG = document.querySelector(".loader--default");
+const firstPoint=spinnerG.firstElementChild;
+const diverterD = document.querySelector(".diverterDisplay");
 var lastPeriod=0;
-var reduction;
+var reduction=1,lastInletPeriod,lastOutletPeriod=0,lastExhaustPeriod=0;
 var gear,lastGear;
 var powerON=1, frequency=8000, tone=1200, phase=30;
 var secondsCounter=0,powerOnCounter=0;
-var nextColor="rgb(0,255,0)";
+var iaqColor="rgb(0,255,0)";
+
 var frequencyColor="rgb(0,255,0)";
 var onFocus=1;
 var co2Inlet=400, co2Outlet=400;
 var red=0,green=255,blue=0;
 var iaq=50;
 var diverterData={};
-var speed=20;
+var speedInlet=80,speedOutlet=40,speedExhaust=60;
 var inlet=400,outlet=400,exhaust=400;
 var secondsTime=0;
 var lastValidSeconds0= 0,lastValidSeconds1= 0,lastValidSeconds2= 0;
@@ -29,7 +35,14 @@ const moonsun = document.getElementById('sunmoon');
 const target = document.getElementById('target');
 const sunColor='#fff'; 
 const moonColor='#1C3236';
-
+const arrowL = document.querySelector('.arrowLeft');
+const arrowR = document.querySelector('.arrowRight');
+const inletG = document.querySelector('.inletGroup');
+const arrowU = document.querySelector('.arrowUp');
+const arrowD = document.querySelector('.arrowDown');
+const outletG = document.querySelector('.outletGroup');
+const exhaustG = document.querySelector('.exhaustGroup');
+//arrowL.classList.toggle('active');
 document.body.style.setProperty('--main-color', sunColor);
 
 
@@ -37,6 +50,15 @@ document.body.style.setProperty('--main-color', sunColor);
 
 
 
+firstPoint.addEventListener('animationiteration', () => {
+  //console.log("interatind ended");
+  spinnerG.style.animationPlayState =      `paused`;
+  ParseIAQColor(iaq)
+  if (reduction >0) {
+    SetSpinner(reduction/1600);
+  }
+  spinnerG.style.animationPlayState='running';
+});
 
 
   document.addEventListener("visibilitychange", function (event) {
@@ -46,6 +68,49 @@ document.body.style.setProperty('--main-color', sunColor);
       onFocus=1;
     }
  });
+
+
+arrowL.addEventListener('animationiteration', () => {
+  arrowL.style.animationPlayState =      `paused`;
+  arrowR.style.animationPlayState =      `paused`;
+  ParseCO2Color(inlet);
+  let cb= "rgb("+parseInt(red/2)+","+parseInt(green/2)+","+parseInt(blue/2)+")";
+  diverterD.style.setProperty('--inletBackColor',cb);
+ // console.log("inlet Iback color" ,cb);
+  //ParseCO2Color(inlet);
+  let c= "rgb("+parseInt(red/1)+","+parseInt(green/1)+","+parseInt(blue/1)+")";
+  inletG.style.setProperty('--inletColor',c)
+  SetSpeedInlet(speedInlet);
+ // arrowL.classList.add('active');
+  arrowL.style.animationPlayState='running';
+  arrowR.style.animationPlayState='running';
+ // arrowL.classList.toggle('active');
+ // console.log("inlet Icolor" ,c);
+});
+
+
+
+arrowU.addEventListener('animationiteration', () => {
+  arrowU.style.animationPlayState =      `paused`;
+  ParseCO2Color(outlet);
+  let cb= "rgb("+parseInt(red/2)+","+parseInt(green/2)+","+parseInt(blue/2)+")";
+  diverterD.style.setProperty('--outletBackColor',cb);
+  let c= "rgb("+parseInt(red/1)+","+parseInt(green/1)+","+parseInt(blue/1)+")";
+  outletG.style.setProperty('--outletColor',c)
+  SetSpeedOutlet(speedOutlet);
+  arrowU.style.animationPlayState='running';
+}); 
+
+arrowD.addEventListener('animationiteration', () => {
+  arrowD.style.animationPlayState =      `paused`;
+  ParseCO2Color(exhaust);
+  let cb= "rgb("+parseInt(red/2)+","+parseInt(green/2)+","+parseInt(blue/2)+")";
+  diverterD.style.setProperty('--exhaustBackColor',cb);
+  let c= "rgb("+parseInt(red/1)+","+parseInt(green/1)+","+parseInt(blue/1)+")";
+  exhaustG.style.setProperty('--exhaustColor',c)
+  SetSpeedExhaust(speedExhaust);
+  arrowD.style.animationPlayState='running';
+});
 
 
  async function GetResponse(){
@@ -142,7 +207,9 @@ async function  UpdateData(data){
       outlet=parseInt(diverterData.M.dif.M.co2.N);
       exhaust=parseInt(diverterData.M.sca.M.co2.N);
       iaq=parseInt(diverterData.M.dif.M.iaq.N);
-      speed=parseInt(diverterData.M.dif.M.spe.N);
+      speedInlet=parseInt(diverterData.M.dif.M.spe.N);
+      speedOutlet=parseInt(diverterData.M.div.M.spe.N);
+      speedExhaust=parseInt(diverterData.M.sca.M.spe.N);
       
 }
 function ParseIAQColor(iaq){
@@ -166,6 +233,27 @@ function ParseIAQColor(iaq){
 		}else{
 			red=255;
 			blue=(iaq-255)*255/245;
+			green=0;
+		}
+	}
+	return green;
+}
+
+
+function ParseCO2Color(co2){
+	if(co2>0){
+		if (co2<400) {
+			blue=64+ (400-co2)*192/49 ; green=255- (400-co2)*192/49;
+			red=0;
+      iaqLabel.innerHTML = "Excelent";
+
+		} else if(co2<1600){
+			green=255- (co2-400)*255/1200;
+			red=(co2-400)*255/1200;
+			blue=0;
+    }else{
+			red=255;
+			blue=(co2-1600)*255/400;
 			green=0;
 		}
 	}
@@ -246,7 +334,7 @@ var chartC = new Highcharts.chart('Sensors', {
     type: 'spline'
   },
   title: {
-    text: 'VOC Concentration'
+    text: 'CO2 History'
   },
   subtitle: {
     text: 'Volatile Organic Compounds  at the test points'
@@ -321,33 +409,77 @@ var chartC = new Highcharts.chart('Sensors', {
 });
 
 
-function SetReductionColor(sp) {
+
+function SetSpinner(r) {
 
   //console.log("value ", value);
-  frequencyColor=nextColor;
 
-  reductionLabel.innerHTML = parseInt(iaq>0?iaq:50);
-   nextColor= "rgb("+red+","+green+","+blue+")";
+
+ // reductionLabel.innerHTML = parseInt(iaq>0?iaq:50);
+   iaqColor= "rgb("+red+","+green+","+blue+")";
 //  console.log("NextColor ", nextColor);
- _fan.style.setProperty('--nextColor',nextColor);
- _fan.style.setProperty('--frequencyColor',frequencyColor);
- 
-  var s=(12 -parseInt(sp*11/40))*0.2;
+ spinnerG.style.setProperty('--iaqColor',iaqColor);
+ var s=(12 -parseInt(r*11/1600))*0.2;
   //s=0.1;
    period=s+"s";
   if(period==lastPeriod){
     
   }else{
-     _fan.style.setProperty('--periodRotation',period);
+     spinnerG.style.setProperty('--periodRotation',period);
     lastPeriod=period;
   }
  
-  console.log("Speed ", period);
+//  console.log("Speed ", period);
+  
+}
+function SetSpeedInlet(sp) {
+
+  var s=(30 -parseInt(sp*29/100))*0.4;
+
+ var p=s+"s";
+  if(p==lastInletPeriod){
+    
+  }else{
+     diverterD.style.setProperty('--inletPeriod',p);
+
+    lastInletPeriod=p;
+  }
+ 
+  
+}
+function SetSpeedOutlet(sp) {
+
+  var s=(30 -parseInt(sp*29/100))*0.4;
+
+ var p=s+"s";
+  if(p==lastOutletPeriod){
+    
+  }else{
+     diverterD.style.setProperty('--outletPeriod',p);
+
+    lastOutletPeriod=p;
+  }
+ 
+  
+}
+function SetSpeedExhaust(sp) {
+
+  var s=(30 -parseInt(sp*29/100))*0.4;
+
+ var p=s+"s";
+  if(p==lastExhaustPeriod){
+    
+  }else{
+     diverterD.style.setProperty('--exhaustPeriod',p);
+
+    lastExhaustPeriod=p;
+  }
+ 
   
 }
 
 function SetCharts(){
-  let reduction=(inlet-outlet)*speed/100;
+  reduction=(inlet-outlet);
   if ((inlet>300)&(outlet>300)&(exhaust>300)) {
     var t = (new Date()).getTime();
   
@@ -369,22 +501,11 @@ function SetCharts(){
 
 }
   
-  setInterval( async function ( ) {
 
-    ParseIAQColor(iaq)
-    SetReductionColor(speed);
-    SetCharts()
- 
- 
-    secondsCounter++;
-    if (onFocus) {
-      if(await callAPI().status==200){
-       // console.log("get",GetResponse().responseText)
-      }
-    }
- 
- //   console.log("Seconds",secondsCounter);
-  }, 1200 ) ;
+
+
+
+
 
   function ToogleSunMoon(){
     target.classList.toggle('toggle');
@@ -438,4 +559,23 @@ function SetCharts(){
   });
 
 
+  setInterval( async function ( ) {
 
+
+  
+    SetCharts()
+
+    inletLabel.innerHTML=parseInt(inlet);
+    outletLabel.innerHTML=parseInt(outlet);
+    exhaustLabel.innerHTML=parseInt(exhaust);
+ 
+ 
+    secondsCounter++;
+    if (onFocus) {
+      if(await callAPI().status==200){
+       // console.log("get",GetResponse().responseText)
+      }
+    }
+ 
+ //   console.log("Seconds",secondsCounter);
+  }, 1200 ) ;
