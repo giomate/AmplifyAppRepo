@@ -7,6 +7,7 @@ var inletLabel= document.getElementById("it");
 var outletLabel= document.getElementById("ot");
 var exhaustLabel= document.getElementById("et");
 var iaqLabel= document.getElementById("iaqWord");
+iaqLabel.innerHTML="Reading ...";
 const spinnerG = document.querySelector(".loader--default");
 const firstPoint=spinnerG.firstElementChild;
 const diverterD = document.querySelector(".diverterDisplay");
@@ -578,4 +579,4 @@ function SetCharts(){
     }
  
  //   console.log("Seconds",secondsCounter);
-  }, 1200 ) ;
+  }, 3000 ) ;
