@@ -208,8 +208,8 @@ async function  UpdateData(data){
       outlet=parseInt(diverterData.M.dif.M.co2.N);
       exhaust=parseInt(diverterData.M.sca.M.co2.N);
       iaq=parseInt(diverterData.M.dif.M.iaq.N);
-      speedInlet=parseInt(diverterData.M.dif.M.spe.N);
-      speedOutlet=parseInt(diverterData.M.div.M.spe.N);
+      speedInlet=parseInt(diverterData.M.div.M.spe.N);
+      speedOutlet=parseInt(diverterData.M.dif.M.spe.N);
       speedExhaust=parseInt(diverterData.M.sca.M.spe.N);
       
 }
