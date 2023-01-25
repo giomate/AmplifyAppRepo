@@ -1,6 +1,6 @@
 
 
-
+i
 const gaugeElement = document.querySelector(".gauge");
 //var reductionLabel = document.getElementById("rp");
 var inletLabel= document.getElementById("it");
@@ -24,6 +24,8 @@ var co2Inlet=400, co2Outlet=400;
 var red=0,green=255,blue=0;
 var iaq=50;
 var diverterData={};
+import { diverterD } from "./aws_api";
+import { callAPI } from "./aws_api";
 var speedInlet=80,speedOutlet=40,speedExhaust=60;
 var inlet=400,outlet=400,exhaust=400;
 var secondsTime=0;
@@ -159,7 +161,7 @@ arrowD.addEventListener('animationiteration', () => {
   .catch(error => console.log('error', error));
   */
 }
-  async function callAPI(){
+  async function callAPI2(){
     var status={};
     // instantiate a headers object
     var myHeaders = new Headers();
@@ -193,7 +195,7 @@ arrowD.addEventListener('animationiteration', () => {
     	return request;
 
 }
-async function  UpdateData(data){
+async function  UpdateData(){
  // console.log("frequency",data.M.trebina.M.frequency.N);
 
 
@@ -213,6 +215,8 @@ async function  UpdateData(data){
       speedExhaust=parseInt(diverterData.M.sca.M.spe.N);
       
 }
+
+
 function ParseIAQColor(iaq){
 	if(iaq>0){
 		if (iaq<50) {
@@ -574,6 +578,8 @@ function SetCharts(){
     secondsCounter++;
     if (onFocus) {
       if(await callAPI().status==200){
+        diverterData=diverterD;
+        UpdateData();
        // console.log("get",GetResponse().responseText)
       }
     }
