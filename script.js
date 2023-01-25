@@ -23,8 +23,8 @@ var onFocus=1;
 var co2Inlet=400, co2Outlet=400;
 var red=0,green=255,blue=0;
 var iaq=50;
-var diverterData={};
-import { diverterD } from "./aws_api";
+//var diverterData={};
+import { diverterData } from "./aws_api";
 import { callAPI } from "./aws_api";
 var speedInlet=80,speedOutlet=40,speedExhaust=60;
 var inlet=400,outlet=400,exhaust=400;
@@ -578,7 +578,7 @@ function SetCharts(){
     secondsCounter++;
     if (onFocus) {
       if(await callAPI().status==200){
-        diverterData=diverterD;
+       // diverterData=diverterD;
         UpdateData();
        // console.log("get",GetResponse().responseText)
       }
