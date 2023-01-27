@@ -7,7 +7,7 @@
     --inletPeriod:3s;
     --outletPeriod:3s;
     --exhaustPeriod:3s;
-    transform: translate(0vw, -41vw);
+    transform: translate(2vw, -82vw);
     z-index: 3;
   }
   .roundBackground {
@@ -44,7 +44,7 @@
       position: relative;
    /* left: 0;*/
       height: 0px; width: 0px;
-      border: 2vw solid;
+      border: 4vw solid;
       border-color: 
           var(--outletColor)
           var(--outletColor)
@@ -62,7 +62,7 @@
       position: absolute;
       top: 0px; right: 0px;
       display: block;
-      height: 4vw; width: 1.7vw;
+      height: 8vw; width: 3.4vw;
       background-color:var(--outletColor);
       transform: translate(50%, -50%) rotate(45deg);
   }
@@ -74,7 +74,7 @@
     }
     to {
       /* returns the sun to its default position */
-      transform: translateY(-5vw) rotate(-45deg) ;  opacity:0;
+      transform: translateY(-10vw) rotate(-45deg) ;  opacity:0;
     }
   }
 
@@ -120,7 +120,7 @@
       position: relative;
    /* left: 0;*/
       height: 0px; width: 0px;
-      border: 2vw solid;
+      border: 4vw solid;
       border-color: 
           var(--inletColor)
           var(--inletColor)
@@ -138,7 +138,7 @@
       position: absolute;
       top: 0px; right: 0px;
       display: block;
-      height: 1.7vw; width: 4vw;
+      height: 3.4vw; width: 8vw;
       background-color: var(--inletColor);
       transform: 
           rotate(-45deg) 
@@ -158,7 +158,7 @@
     }
     to {
       /* returns the sun to its default position */
-      transform: translateX(10vw) rotate(45deg) ;  opacity:0;
+      transform: translateX(20vw) rotate(45deg) ;  opacity:0;
     }
   }
 
@@ -167,7 +167,7 @@
       position: relative;
   /*  left: 0;*/
       height: 0px; width: 0px;
-      border: 2vw solid;
+      border: 4vw solid;
       border-color: 
       var(--inletColor)
           var(--inletColor)
@@ -183,7 +183,7 @@
       position: absolute;
       top: 0px; right: 0px;
       display: block;
-      height: 1.7vw; width: 4vw;
+      height: 3.4vw; width: 8vw;
       background-color: var(--inletColor);
       transform: 
           rotate(-225deg) 
@@ -196,7 +196,7 @@
     }
     to {
       /* returns the sun to its default position */
-      transform: translateX(-10vw) rotate(225deg) ;  opacity:0;
+      transform: translateX(-20vw) rotate(225deg) ;  opacity:0;
     }
   }
   
@@ -218,7 +218,7 @@
       position: relative;
    /* left: 0;*/
       height: 0px; width: 0px;
-      border: 2vw solid;
+      border: 4vw solid;
       border-color: 
           var(--exhaustColor)
           var(--exhaustColor)
@@ -234,7 +234,7 @@
       position: absolute;
       top: 0px; right: 0px;
       display: block;
-      height: 4vw; width: 1.7vw;
+      height: 8vw; width: 3.4vw;
       background-color: var(--exhaustColor);
       transform: 
           rotate(-135deg) 
@@ -247,10 +247,25 @@
     }
     to {
       /* returns the sun to its default position */
-      transform: translateY(5vw) rotate(135deg) ;  opacity:0;
+      transform: translateY(10vw) rotate(135deg) ;  opacity:0;
     }
   }
 
   .co2Text{
-    font-size: 4vw;
+    font-size: 7vw;
   }
+  .airText{
+    position: relative;
+    top:-76vw;
+    /* text-align: center;*/
+     font-size: 7vw;
+     z-index: 1;
+     justify-content:space-between;
+     text-align: justify;
+    /* padding-bottom: 10%;*/
+   }
+   
+   #iaqWord{
+     padding-left: 20vw;
+     justify-content:right;
+   }
