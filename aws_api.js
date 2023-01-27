@@ -1,7 +1,7 @@
 
 var secondsTime=0;
 var lastValidSeconds0= 0,lastValidSeconds1= 0,lastValidSeconds2= 0;
-export var diverterD={};
+export var diverterData={};
 
 export async function callAPI(){
   

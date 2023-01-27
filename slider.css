@@ -12,12 +12,12 @@
 #sunmoon {
   left: 0%;
   border-radius: 0.5vw;
-   height: 1vw;
-  width: 2.4vw;
+   height: 2vw;
+  width: 4.8vw;
   background-color: var(--main-color);
   cursor: pointer;
   transition: all .3s ease-in-out;
-  box-shadow: 0vw 0vw 0.3vw rgba(0, 0, 0, .15);
+  box-shadow: 0vw 0vw 0.6vw rgba(0, 0, 0, .15);
   position: relative;
     justify-content: flex-start;
     z-index: 2;
@@ -30,14 +30,14 @@
 }
 
 .toggle {
-  left: calc(100% - 1vw) !important;
+  left: calc(100% - 2vw) !important;
 /*  border: 1px solid rgba(0,0,0,0.25);*/
 }
 
 .sun {
   cursor: pointer;
-  width: 1vw;
-  height: 1vw;
+  width: 2vw;
+  height: 2vw;
   border-radius: 50%;
   background-color: #FFDB73;
   position: relative;
@@ -49,8 +49,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 1.2vw;
-  height: 1.2vw;
+  width: 2.4vw;
+  height: 2.4vw;
   border-radius: 50%;
   background-color: #FFDB73;
   opacity: .5;
@@ -62,8 +62,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 1.5vw;
-  height: 1.5vw;
+  width: 3vw;
+  height: 3vw;
   border-radius: 50%;
   background-color: #FFDB73;
   opacity: .3;
@@ -71,8 +71,8 @@
 
 .moon {
   cursor: pointer;
-  width: 1vw;
-  height: 1vw;
+  width: 2vw;
+  height: 2vw;
   border-radius: 50%;
   background-color: #0A515B;
   position: relative;
@@ -85,8 +85,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 1.2vw;
-  height: 1.2vw;
+  width: 2.4vw;
+  height: 2.4vw;
   border-radius: 50%;
   background-color: #0A515B;
   opacity: .5;
@@ -98,8 +98,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 1.5vw;
-  height: 1.5vw;
+  width: 3vw;
+  height: 3vw;
   border-radius: 50%;
   background-color: #0A515B;
   opacity: .3;
@@ -117,8 +117,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 0.5vw;
-  height: 0.5vw;
+  width: 2vw;
+  height: 2vw;
   border-radius: 50%;
   background-color: #FFE4BF;
   z-index: 2;
@@ -127,11 +127,11 @@
 .moon > div::after {
   content: '';
   position: absolute;
-  top: 0.2vw;
-  right: 0.2vw;
+  top: 0.4vw;
+  right: 0.4vw;
 
-  width: 0.4vw;
-  height: 0.4vw;
+  width: 0.8vw;
+  height: 0.8vw;
   border-radius: 50%;
   background-color: #0A515B;
   z-index: 3;

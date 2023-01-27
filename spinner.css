@@ -1,15 +1,15 @@
 .diverterSpinner{
     position: relative;
-    top: 10%;
+   /* top: 10%;*/
     left: 0%;
       align-content: center;
     flex-direction: column;
     align-items: center;
     display: flex;
     width: 100%;
-    height: 44vw;
+    height: 88vw;
      justify-content: center;
-     transform: translateY( -1vw);
+     transform: translateY( -2vw);
     z-index: 1;
     background-color: transparent;
 
@@ -22,10 +22,10 @@
       color: #00ff9f;
       background: #fff;
       position: relative;
-      padding-top: 1vw;
-      padding-bottom: 2vw;
-      padding-left: 1vw;
-      padding-right: 2vw;
+      padding-top: 2vw;
+      padding-bottom: 4vw;
+      padding-left: 4vw;
+      padding-right: 4vw;
       background-color: inherit;
      /*transform: scale(2);*/
     }
@@ -38,8 +38,8 @@
     .loader--default {
     /* display: inline-block;*/
       position: relative;
-       height: 40vw;
-      width: 40vw;
+       height: 80vw;
+      width: 80vw;
     
      --nextColor:green;
      --frequencyColor:red;
@@ -57,8 +57,8 @@
       animation-timing-function: linear;
       
       border-radius: 50%;
-      height: 1vw;  
-      width: 1vw;
+      height: 2vw;  
+      width: 2vw;
     
     
     
@@ -71,8 +71,8 @@
     .loader--default div:nth-child(1) {
     
       animation-delay: 0s;
-     top: 20vw;
-      left:40vw;
+     top: 40vw;
+      left:80vw;
     /*  background-color: black;*/
     
     
@@ -83,8 +83,8 @@
       --delay1:calc((1) * var(--periodRotation) / 12);
     
       animation-delay: var(--delay1);
-    top: 30vw ;
-      left: 37.3vw;
+    top: 60vw ;
+      left: 75vw;
       
     
     }
@@ -93,8 +93,8 @@
     
     --delay2:calc((2)*var(--periodRotation)/12);
       animation-delay: var(--delay2);
-      top: 37.3vw;
-      left: 30vw;
+      top: 75vw;
+      left: 60vw;
          /*  background-color: black;*/
     }
     
@@ -102,8 +102,8 @@
      
       --delay3:calc((3) * var(--periodRotation) / 12);
       animation-delay: var(--delay3);
-      top: 40vw;
-      left: 20vw;
+      top: 80vw;
+      left: 40vw;
     
     }
     
@@ -111,8 +111,8 @@
     
       --delay4:calc(( 4)* var(--periodRotation) / 12);
       animation-delay: var(--delay4);
-     top: 37.3vw;
-      left: 10vw;
+     top: 75vw;
+      left: 20vw;
     
     }
     
@@ -120,8 +120,8 @@
     
       --delay5:calc( (5)*var(--periodRotation) / 12);
       animation-delay: var(--delay5);
-     top: 30vw;
-      left: 2.7vw;
+     top: 60vw;
+      left: 5vw;
     
     }
     
@@ -129,7 +129,7 @@
     
        --delay6:calc((var(--periodRotation) / 12) * calc(6));
       animation-delay: var(--delay6);
-      top: 20vw;
+      top: 40vw;
       left: 0vw;
     }
     
@@ -137,16 +137,16 @@
     
      --delay7:calc( calc(7) * (var(--periodRotation) / 12));
       animation-delay: var(--delay7);
-      top: 10vw;
-      left: 2.7vw;
+      top: 20vw;
+      left: 5vw;
     }
     
     .loader--default div:nth-child(9) {
     
       --delay8:calc((8)*(var(--periodRotation)/12));
       animation-delay: var(--delay8);
-      top: 2.7vw;
-      left: 10vw;
+      top: 5vw;
+      left: 20vw;
     }
     
     .loader--default div:nth-child(10) {
@@ -154,23 +154,23 @@
       --delay9:calc((9 )*( var(--periodRotation) / 12));
       animation-delay: var(--delay9);
       top: 0vw;
-      left: 20vw;
+      left: 40vw;
     }
     
     .loader--default div:nth-child(11) {
     
      --delay10:calc((10) * var(--periodRotation) / 12);
       animation-delay: var(--delay10);
-      top: 2.4vw;
-      left: 30vw;
+      top: 5vw;
+      left: 60vw;
     }
     
     .loader--default div:nth-child(12) {
     
       --delay11:calc((11) * var(--periodRotation) / 12);
       animation-delay: var(--delay11);
-      top: 10vw;
-      left: 37.3vw;
+      top: 20vw;
+      left: 75vw;
     }
     
     @keyframes spinner--default {

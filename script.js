@@ -1,6 +1,6 @@
 
 
-i
+
 const gaugeElement = document.querySelector(".gauge");
 //var reductionLabel = document.getElementById("rp");
 var inletLabel= document.getElementById("it");
@@ -23,9 +23,7 @@ var onFocus=1;
 var co2Inlet=400, co2Outlet=400;
 var red=0,green=255,blue=0;
 var iaq=50;
-//var diverterData={};
-import { diverterData } from "./aws_api";
-import { callAPI } from "./aws_api";
+var diverterData={};
 var speedInlet=80,speedOutlet=40,speedExhaust=60;
 var inlet=400,outlet=400,exhaust=400;
 var secondsTime=0;
@@ -135,7 +133,7 @@ arrowD.addEventListener('animationiteration', () => {
   let response = await fetch(apiUrl);
  // let response = await fetch("https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy");
   if (response.ok) { // if HTTP-status is 200-299
-    
+   // console.log("Response: ",response.text());  
     // get the response body (the method explained below)
    let json = await response.json();
    
@@ -144,24 +142,14 @@ arrowD.addEventListener('animationiteration', () => {
 
   // let pay=json.payload;
    diverterData=JSON.parse(body); 
- //  let t=diverterData.M;
- //   console.log("GOT",diverterData);
-    await UpdateData(diverterData);
+  // console.log("Data: ", diverterData);
+    await UpdateData();
   } else {
     alert("HTTP-Error: " + response.status);
   }
-  // make API call with parameters and use promises to get response
-  /*
-  fetch("https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy")
-  .then(response =>{
-    response.text()
- //   console.log("GET", text);
-  } )
- .then(result => console.log(JSON.parse(result).body))
-  .catch(error => console.log('error', error));
-  */
+
 }
-  async function callAPI2(){
+  async function callAPI(){
     var status={};
     // instantiate a headers object
     var myHeaders = new Headers();
@@ -579,7 +567,7 @@ function SetCharts(){
     if (onFocus) {
       if(await callAPI().status==200){
        // diverterData=diverterD;
-        UpdateData();
+       // UpdateData();
        // console.log("get",GetResponse().responseText)
       }
     }
