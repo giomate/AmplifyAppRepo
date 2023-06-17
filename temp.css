@@ -1,0 +1,121 @@
+
+.temperatureStack{
+  --highThermo: 30vh;
+  display: flex;
+ /* position: relative;*/
+  flex-direction:column;
+  align-items:center;
+  justify-content: space-between;
+ /* align-items: center;*/
+ /* width: 100%;*/
+ /* height: 40vh;*/
+ padding-left: 4vw;
+  /*height: max-content ;*/
+  /*height: calc(4*var(--highThermo)/2);*/
+
+
+}
+
+.tempText{
+    position: relative;
+    z-index: 3;
+    /*bottom: 100%;*/
+  }
+  
+.wrapperThermometer {
+ 
+  --temperature:25;
+   /* margin: 5% auto;*/
+   /* width: 500px;*/
+    position: relative;
+    height:var(--highSymbols);
+    --border-color: #3f4742be;
+    --border-color-primary: #8e44ad;
+    --inner-color: #fff;
+    --inner-color-dimmed: #7f8c8d;
+    --border-rad-outer: 0 3vmin 3vmin 0;
+    --border-rad-inner: 0 6vmin 2vmin 0;
+    
+  }
+  
+  .thermometer {  
+    position: relative;
+    height: calc(3*var(--highThermo)/2);
+    bottom: -10%;
+    /*width: fit-content;*/
+  /*  height: 72px;
+    margin: 15px;*/
+  }
+  
+  .thermometer-body {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-items: center;
+    align-items: center;*/
+ /*   width: 6vw;*/
+    height: var(--highThermo);
+   /* position: absolute;*/
+   /* left: 13vmin;
+    top: -3vmin;*/
+    background: var(--main-color);
+    border-radius: 4vw 4vw 0 0;
+    border: 1vw solid var(--border-color);
+    z-index: 2;
+    color: var(--main-color);
+    .primary & {
+      border-color: var(--border-color-primary);
+    }
+    border-bottom: none;
+   
+    &:after {
+      content: ' ';
+      width: 12vw;
+      height: 12vw;
+      position: absolute;
+     top:calc(1*var(--highThermo) - 1vh);
+      left: -2vw;
+      z-index: 1;
+    /*  background: var(--main-color);*/
+      background-color: transparent;
+      border-radius: 50%;
+      border: 1vw solid var(--border-color);
+     .primary & {
+        background: var(--main-color-primary);
+        border-color: var(--border-color-primary);
+      }
+     /* box-shadow: inset 0 0 0 1vmin var(--bg-color);  
+      border-right: none;   */
+    }
+   /* &::after{
+      content: " ";
+      width: 50vmin;
+      height: 4vmin;
+      background: var(--main-color);
+  
+    }*/
+  }
+  .progress {
+    position: relative;
+    border-radius: 4vw;
+    background-color: #bd0d0d;
+    height:calc( var(--highThermo)*var(--temperature)/50);
+    width: 4vw;
+  /*  transform: rotate(180deg);*/
+
+   bottom:calc(1*var(--highThermo)*(var(--temperature)/50 - 1));
+    z-index: 3;
+    border: 2vw solid var(--main-color);  
+  }  
+  
+  .progress-bar {
+    border-radius: 2vw;
+    
+   
+    
+  }
+  .tempLabel{
+    position: relative;
+    padding-left: 4vw;
+    /*bottom: 100%;*/
+  }
+  

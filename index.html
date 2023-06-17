@@ -1,21 +1,12 @@
 <!DOCTYPE HTML><html>
-<!-- Rui Santos - Complete project details at https://RandomNerdTutorials.com
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files.
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software. -->
   <head>
      
-      <title>Smart Air Separator</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-      <link rel="icon" href="data:,">
+      <title>GraviPlant Humidity</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width">
       <link href="style.css" rel="stylesheet" type="text/css">
-      <link href="diverter.css" rel="stylesheet" type="text/css">
-      <link href="slider.css" rel="stylesheet" type="text/css">
-      <link href="plots.css" rel="stylesheet" type="text/css">
-      <link href="spinner.css" rel="stylesheet" type="text/css">
+
+ 
 
 
       
@@ -23,90 +14,63 @@ copies or substantial portions of the Software. -->
 
   </head>
   <body>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/series-label.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <h1>Smart Air Separator</h1>
-   <div class="animationStack">
-       <div class="sleepBox">
-        <div class="moonsun"  id='sunmoon'>
-          <div id='target' class='sun' >
-            <div></div>
-          </div>
-        </div>  
-      </div>
-  
-      <div class="diverterSpinner">
-        <div class="spinner">
 
-          <div class="loader--default">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-       
-          </div>
-      </div>
-    
-
-      <div class=diverterDisplay>
-        <div class="roundBackground">
-           <div class=outletGroup>
-             <div class="outletText">
-                <h2><span class="co2Text" id="ot"></span></h2>
-             </div>
-            <div class="arrowed">
-                <div class="arrowUp">
-                
+    <h1>Humidity Server</h1>
+    <div class ="sunBox">
+      <div class="sun"></div>
+    </div>
+    <div class="plantGroup">
+      <div class="thermometerBox">
+        <div class="temperatureStack"> 
+          <div class="temText"><span id="tempValue"> 25 </span> °C</div>
+            <div class="wrapperThermometer">
+              <div class="thermometer">
+                <div class="thermometer-body">
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar"  aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
                 </div>
-             </div>
+              </div>
+            </div>
+            <div class="tempLabel" > TEMPERATURE </div>
           </div>
-          <div class=inletGroup>
-             <div class="arrowed">
-                <div class="arrowLeft"></div>
-              </div>
-           <div class="inletText">
-              <h2><span class="co2Text" id="it"></span></h2>
-             </div>
-            <div class="arrowed">
-               <div class="arrowRight"></div>
-             </div>
-           </div>
-          <div class=exhaustGroup>
-              <div class="arrowed">
-                <div class="arrowDown"></div>
-              </div>
-             <div class="exhaustText">
-                <h2><span class="co2Text" id="et"></span></h2>
-             </div>
-           </div>
+      </div>
+
+      <div class ="plantBox">
+        <div class="plantVase">
+          <div class="grass">
+            <div class="grass__blade grass__blade--4"></div>
+            
+            <div class="grass__blade grass__blade--2"></div>
+            <div class="grass__blade grass__blade--3"></div>
+            <div class="grass__blade grass__blade--1"></div>
+          
+      
+          </div>
+          <div class="vaseBox">
+            <div class="vase"></div>
+        </div>
         </div>
       </div>
-      <p class="airText">Air Quality <span id="iaqWord"> iaq_text</span></p>
-     </div>
-    
-     <div class="chartsDivision">   
-      <figure class="highcharts-figure">
-        <div id="Reduction"></div>
-        <div id="Sensors"></div>      
-      </figure>
-    </div>
- 
 
-  </body>
-  <script  src="script.js"></script>
+      <div class="humBox">
+        <div class="humidityStack">
+          <div class="humText"> <span id="humValue"> 18 </span> %</div>
+      
+          <div class="humidityGroup">
+            <div class="waterDrop"></div>
+          </div>
+          <div class="humLabel" > HUMIDITY </div>
+        
+        </div>
+      </div>
+    </div>
   
 
-</html>
+
+
+    
+    
+    </body>
+    <script src="script.js"></script>
+    </html>

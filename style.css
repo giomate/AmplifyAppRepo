@@ -1,57 +1,28 @@
 
-@import "diverter.css";
-@import "slider.css";
-@import "plots.css";
-@import "spinner.css";
+@import "plant.css";
+@import "sun.css";
+@import "hum.css";
+@import "temp.css";
 
-* {
-  margin: 0;
-  padding: 0;
-  outline: none;
-  border: none;
-}
-html, body {
-  --main-color: #fff; 
-  /*
-  width: 100%;
+
+
+
+
+body {
+  --main-color:#9bafc3; 
+  background:var(--main-color);
   height: 100vh;
-  */
-  /*display: flex;*/
-  /*align-items: center;*/
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--main-color);
-  transition: background-color .3s ease-in-out;
+  /*overflow: hidden;*/
   width: 100%;
-}
-
-.animationStack{
   display: flex;
   flex-direction: column;
   align-items:center;
   justify-content: center;
+  position: absolute;
+  --main-color-primary: #2ca1cf;
+
+
 }
-
-.diverterDisplay{ 
-position: relative;
-width: 72vw;
-height: 72vw;
-/*border: 1px solid rgba(0,0,0,0.25);*/
-background-color: transparent;
-}
-
-
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-
-
 
 
 h1 {
@@ -61,22 +32,56 @@ h1 {
   text-shadow: 0 0 1px rgb(24, 195, 47);
   text-align: center;
   padding: 0 0 1vw 0;
+ /* bottom: -3vh;*/ 
+  z-index: 5;
 }
 
 
 
-.airText{
- position: relative;
- top:-76vw;
- /* text-align: center;*/
-  font-size: 7vw;
-  z-index: 1;
-  justify-content:space-between;
-  text-align: justify;
- /* padding-bottom: 10%;*/
+
+.sunBox{
+  z-index: 0;
 }
 
-#iaqWord{
-  padding-left: 7vw;
-  justify-content:right;
+.plantGroup{
+  --highSymbols: 50vh;
+  display: flex;
+  flex-direction: row;
+  align-items:flex-end;
+  align-content:space-between;
+  justify-content: space-between;
 }
+
+
+.thermometerBox{
+
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  transform: translate(10vw,0);
+ /* align-content: center;*/
+ /* width: min-content;*/
+  /*align-content: flex-end;*/
+ /* width: 100%;*/
+}
+.plantBox{
+  
+    display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+  z-index: 4;
+  width: 100%;
+}
+.humBox{
+  
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: end; 
+  transform: translate(-10vw,0);
+  /*align-content: flex-end;*/
+ /* width: 100%;*/
+}
+
+
+

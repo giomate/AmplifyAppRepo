@@ -1,0 +1,12 @@
+
+@import "grass.css";
+@import "vase.css";
+.plantVase{
+  
+    display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+  z-index: 4;
+  width: 100%;
+}

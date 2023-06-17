@@ -1,0 +1,16 @@
+.sun {
+    /*  height: 0;*/
+     /* justify-content: center;*/
+     aspect-ratio: 1;
+      position:absolute;
+      top: 0;
+      left:0 ;
+      width: 100%;
+      background: radial-gradient( #DBB800 0%, transparent 20%);
+     animation: sunrise 10s forwards;
+    
+    }
+    @keyframes sunrise{
+      0% {transform: translate(0%,0%)}
+      100% {transform: translate(0%,-55%)}
+    }
