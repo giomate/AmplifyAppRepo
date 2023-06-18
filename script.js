@@ -6,7 +6,7 @@
   const deviceName="Avocado1";
   const topicString ='avo1/sub';
   var avocadoData={};
-  var temperatureAvocado=25,humidityAvocado=30,angleAvocado=0;
+  var temperatureAvocado=25,humidityAvocado=30,angleAvocado=0,moistureAvocado=30;
 
   var secondsTime=0;
 var lastValidSeconds0= 0,lastValidSeconds1= 0,lastValidSeconds2= 0;
@@ -57,7 +57,7 @@ async function GetResponse(){
     let json = await response.json();
     
     const body=json.body;
-    console.log("GOT", body);
+   // console.log("GOT", body);
       if (isEmpty(body)) {
         return;
       }
@@ -112,7 +112,7 @@ async function  UpdateData(){
   angleAvocado=1*avocadoData.ang/1;
   temperatureAvocado=avocadoData.tem;
   humidityAvocado=avocadoData.res;
-
+  moistureAvocado=avocadoData.hum;
 /*
   frequency= parseFloat(diverterData.M.tre.M.fre.N);
   phase= parseFloat(diverterData.M.tre.M.pha.N);
@@ -194,11 +194,16 @@ async function  UpdateData(){
 
   
       humidityLabel.innerHTML=humidityAvocado;
-      const humidityElement = document.querySelector('.humidityGroup');
+      const humidityElement = document.querySelector('.plantGroup');
       humidityElement.style.setProperty('--waterFilling',humidityAvocado+"%");
   
       const plantElement = document.querySelector('.grass');
       plantElement.style.setProperty('--angle',angleAvocado+"deg");
+      console.log("angle: ",angleAvocado);
+      console.log("temperature: ",temperatureAvocado);
+      console.log("humidity: ",humidityAvocado);
+      console.log("moisture: ",moistureAvocado);
+
     }
 
   

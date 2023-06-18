@@ -27,7 +27,7 @@ body {
 
 h1 {
   color: rgb(2, 2, 48);
-  font-size: 2em;
+  font-size: 3em;
   position: relative;
   text-shadow: 0 0 1px rgb(24, 195, 47);
   text-align: center;
@@ -45,6 +45,7 @@ h1 {
 
 .plantGroup{
   --highSymbols: 50vh;
+  --waterFilling: 50%;
   display: flex;
   flex-direction: row;
   align-items:flex-end;
@@ -58,7 +59,7 @@ h1 {
   display: flex;
   flex-direction: row;
   align-items: start;
-  transform: translate(10vw,0);
+  transform: translate(8vw,0);
  /* align-content: center;*/
  /* width: min-content;*/
   /*align-content: flex-end;*/
@@ -78,7 +79,7 @@ h1 {
   display: flex;
   flex-direction: row-reverse;
   align-items: end; 
-  transform: translate(-10vw,0);
+  transform: translate(-6vw,0);
   /*align-content: flex-end;*/
  /* width: 100%;*/
 }
