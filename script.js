@@ -109,7 +109,7 @@ async function GetResponse(){
 
 }
 async function  UpdateData(){
-  angleAvocado=-1*avocadoData.ang/1;
+  angleAvocado=1*avocadoData.ang/1;
   temperatureAvocado=avocadoData.tem;
   humidityAvocado=avocadoData.res;
 
