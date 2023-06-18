@@ -8,7 +8,7 @@
   align-items: center;
   overflow: hidden;*/
   transform: translate(-50%, 0%) rotate(var(--angle)) ;
-  transition: rotate 3s;
+  transition: all 3s;
   bottom: 0%;
 }
 
