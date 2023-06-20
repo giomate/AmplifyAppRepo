@@ -111,7 +111,9 @@ async function GetResponse(){
 async function  UpdateData(){
   angleAvocado=1*avocadoData.ang/1;
   temperatureAvocado=avocadoData.tem;
+  
   humidityAvocado=avocadoData.res;
+  
   moistureAvocado=avocadoData.hum;
 /*
   frequency= parseFloat(diverterData.M.tre.M.fre.N);
@@ -192,11 +194,18 @@ async function  UpdateData(){
       temperatureElement.style.setProperty('--temperature',temperatureAvocado);
   
 
+      if (moistureAvocado<101) {
+        humidityLabel.innerHTML=moistureAvocado;
+      const humidityElement = document.querySelector('.plantGroup');
+      humidityElement.style.setProperty('--waterFilling',moistureAvocado+"%");
   
-      humidityLabel.innerHTML=humidityAvocado;
+      } else {
+        humidityLabel.innerHTML=humidityAvocado;
       const humidityElement = document.querySelector('.plantGroup');
       humidityElement.style.setProperty('--waterFilling',humidityAvocado+"%");
   
+      }
+      
       const plantElement = document.querySelector('.grass');
       plantElement.style.setProperty('--angle',angleAvocado+"deg");
       console.log("angle: ",angleAvocado);
