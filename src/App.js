@@ -5,7 +5,7 @@ import { useState,useRef } from "react";
 import { Fragment } from "react";
 import TabOnFocus from "./components/UserWatcher";
 import CallAPI from "./components/ApiHandler";
-import ReactRadialGauge from "./components/AngleCompass";
+//import ReactRadialGauge from "./components/AngleCompass";
 import Progress_bar from "./components/ProgressBarsG";
 
 
@@ -79,22 +79,12 @@ let apiCall=[];
       <div style={{ textAlign: "center" }}>
         <h1>Count: {count}</h1>
         <div className="AngleDiv">
-          <ReactRadialGauge
-            units='°'
-            title='Angle'
-            startAngle= {90}
-    ticksAngle= {180}
-    valueBox= {false}
-            value={angle}
-            minValue={-9}
-            maxValue={9}
-            majorTicks={['-9', '-6', '-3', '0', '3', '6', '9']}
-            minorTicks={1}
-            borderShadowWidth= {0}
-             borders= {false}
-             highlights= {false}
-            //sanimationTarget= "plate"
-          ></ReactRadialGauge>
+            <Progress_bar
+                bgcolor="green"
+                progress={10+angle}
+                height={30}
+                maxValue={10}
+            />
         </div>
         <div className="TemperatureDiv">
            <Progress_bar
